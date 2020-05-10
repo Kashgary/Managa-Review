@@ -145,7 +145,7 @@ def create_app(test_config=None):
 
   @app.route("/review/<int:id>", methods=['DELETE'])
   @requires_auth('delete:review')
-  def delete_review(id, jwt):
+  def delete_review(jwt, id):
     manga_id = Review.query.with_entities(Review.manga_id).filter(Review.id==id).all()
     if not manga_id:
         abort(404)
