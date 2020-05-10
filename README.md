@@ -1,10 +1,10 @@
-# Fullstak Nano Degree Graduation Project (Manga Reviews)
+# Fullstack Nano Degree Graduation Project (Manga Reviews)
 
 ## Getting Started
 
 ### About this Project 
 
-This project is part of fullstak develper nano degree and it is the last project in the course.
+This project is part of fullstack develper nano degree and it is the last project in the course.
 The idea of the this project is to give the readers a source to have an idea about a manga if they like to read it
 and a platform for manga enthusiastic to share thier opinions of the manga.
 
