@@ -2,7 +2,7 @@ import os
 from flask import Flask, request, abort, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
-from models import setup_db, Managa, Review
+from models import setup_db, Manga, Review
 
 MANGA_PER_PAGE = 10
 
@@ -32,8 +32,8 @@ def create_app(test_config=None):
           'GET,PUT,POST,DELETE,OPTIONS')
       return response
     
-  @app.route('/manga_list')
-  def get_categories():
+  @app.route('/manga_list', methods=['GET'])
+  def get_mangas():
       selection = Managa.query.order_by(Managa.title).all()
       paginated_mangas = pagination(request, selection)
       
@@ -43,7 +43,34 @@ def create_app(test_config=None):
           'success': True,
           'mangas': paginated_mangas,
           'total_mangas': len(selection),
-      })      
+      })
+  
+  @app.route('/add_manga', methods=['POST'])
+  def add_manga():
+    body = request.get_json()
+    print(body.get('rating'))
+    if not (
+            'title' in body and 'author' in body and
+            'genre' in body and 'rating' in body
+            ):
+        abort(422)
+
+    try:
+        manga = Manga(
+            title=body.get('title'),
+            author=body.get('author'),
+            genre=body.get('genre'),
+            rating=body.get('rating')
+            )
+        manga.insert()
+
+        return jsonify({
+            'success': True,
+            'created': manga.title,
+        })
+
+    except BaseException:
+        abort(422)    
   return app
 
 APP = create_app()

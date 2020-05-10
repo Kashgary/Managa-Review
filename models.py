@@ -16,13 +16,13 @@ def setup_db(app, database_path=database_path):
     db.init_app(app)
     migrate = Migrate(app, db)
     
-class Managa(db.Model):  
+class Manga(db.Model):  
   __tablename__ = 'manga'
 
   id = db.Column(db.Integer, primary_key=True)
-  title = db.Column(db.String)
-  author = db.Column(db.String)
-  genre = db.Column(db.ARRAY(db.String()))
+  title = db.Column(db.String, nullable=False)
+  author = db.Column(db.String, nullable=False)
+  genre = db.Column(db.ARRAY(db.String()), nullable=False)
   rating = db.Column(db.Float())
   review = db.relationship("Review")
   
@@ -56,8 +56,8 @@ class Review(db.Model):
   __tablename__ = 'review'
 
   id = db.Column(db.Integer, primary_key=True)
-  title = db.Column(db.String)
-  name = db.Column(db.String)
+  title = db.Column(db.String, nullable=False)
+  name = db.Column(db.String, nullable=False)
   manga_id = db.Column(db.Integer, db.ForeignKey('manga.id'), primary_key=True)
   rating = db.Column(db.Float)
   
