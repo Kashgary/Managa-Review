@@ -106,8 +106,7 @@ def create_app(test_config=None):
     def add_review(jwt, manga_id):
         body = request.get_json()
         manga = Manga.query.get(manga_id)
-        print body.get('title')
-        print manga
+
         if not ('name' in body and 'review' in body and
                 'title' in body and 'rating' in body):
             abort(422)
