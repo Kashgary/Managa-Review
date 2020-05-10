@@ -4,12 +4,10 @@ from flask_sqlalchemy import SQLAlchemy
 import json
 from flask_migrate import Migrate
 
-database_path = "postgres://yvjkqthupfflsb:c0455588824e2a5dcb759bf6258ded65b6ccb08498cdd98f172ae0938060d7f0@ec2-50-17-90-177.compute-1.amazonaws.com:5432/d4lk17f4g9aee1"
-
 db = SQLAlchemy()
 
 def setup_db(app, database_path=database_path):
-    app.config["SQLALCHEMY_DATABASE_URI"] = database_path
+    app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get('DATABASE_URL')
     app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
     db.app = app
     db.init_app(app)
