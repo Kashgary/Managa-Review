@@ -35,7 +35,7 @@ def create_app(test_config=None):
                              'GET,PUT,POST,DELETE,OPTIONS')
         return response
     @app.route('/', methods=['GET'])
-    def get_mangas(jwt):
+    def index(jwt):
         return jsonify({'success': True, 'JWT': jwt})
         
     @app.route('/mangas', methods=['GET'])
