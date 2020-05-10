@@ -1,0 +1,729 @@
+{
+	"info": {
+		"_postman_id": "f9cd4eb4-2748-4ba2-8f46-e1849e75e15e",
+		"name": "FSND Manga Review",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "public",
+			"item": [
+				{
+					"name": "/mangas",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "4f6af297-4f91-4923-8a2a-d57d018815de",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"value contains mangas array\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.mangas).to.be.an('array')",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/mangas",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"mangas"
+							]
+						},
+						"description": "get a list of mangas"
+					},
+					"response": []
+				},
+				{
+					"name": "/mangas/1/reviews",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "616661fe-7dd3-482b-9870-f5b6bad09e56",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/mangas/1/reviews",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"mangas",
+								"1",
+								"reviews"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/reviews/1",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "5420fa4e-9c26-43c1-ae05-d6a856a8ab4c",
+								"exec": [
+									"pm.test(\"Status code is 404\", function () {",
+									"    pm.response.to.have.status(404);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/reviews/1",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"reviews",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Reviewer",
+			"item": [
+				{
+					"name": "/mangas",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "d225f1cb-f267-4473-b247-ab9f73d6d55e",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"value contains mangas array\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.mangas).to.be.an('array')",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/mangas",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"mangas"
+							]
+						},
+						"description": "get a list of mangas"
+					},
+					"response": []
+				},
+				{
+					"name": "/reviews/1",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "b36239d8-f163-4b72-bdba-093c57695b63",
+								"exec": [
+									"pm.test(\"Status code is 404\", function () {",
+									"    pm.response.to.have.status(404);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/reviews/1",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"reviews",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/mangas/1/reviews",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "9a1a31d9-17ff-4412-ab71-55462b6ab0e9",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\": \"Kashgay\",\n\t\"rating\": 10,\n\t\"review\": \"test create review\",\n\t\"title\": \"TEST\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/mangas/1/reviews",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"mangas",
+								"1",
+								"reviews"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/reviews/4",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "86667ee6-4c33-47eb-a783-a26a05e66b6f",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\": \"Kashgay\",\n\t\"rating\": 10,\n\t\"review\": \"test edit review\",\n\t\"title\": \"TEST\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/reviews/4",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"reviews",
+								"4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/reviews/1",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "ca353d4c-13de-49b0-84cd-0ced3f71aee4",
+								"exec": [
+									"pm.test(\"Status code is 404\", function () {",
+									"    pm.response.to.have.status(404);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/reviews/1",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"reviews",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/mangas/1/reviews",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "ea690a33-cd14-4f63-ac86-3c06e9ec8cea",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/mangas/1/reviews",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"mangas",
+								"1",
+								"reviews"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IlBDU3dxYU9aa244UjlGR0tzeF8zMSJ9.eyJpc3MiOiJodHRwczovL2thc2hnYXJ5MS5hdXRoMC5jb20vIiwic3ViIjoiZ29vZ2xlLW9hdXRoMnwxMDE1MzAxNTUxNTkzNzU4MDU2OTgiLCJhdWQiOlsibWFuZ2FyZXZpZXciLCJodHRwczovL2thc2hnYXJ5MS5hdXRoMC5jb20vdXNlcmluZm8iXSwiaWF0IjoxNTg5MTQ2NjA3LCJleHAiOjE1ODkyMzMwMDcsImF6cCI6InVwaG1qN2JNVDFOSWtJTWdMa0JYdmIzenR4bWttTEo2Iiwic2NvcGUiOiJvcGVuaWQgcHJvZmlsZSBlbWFpbCIsInBlcm1pc3Npb25zIjpbImFkZDpyZXZpZXciLCJkZWxldGU6cmV2aWV3IiwiZWRpdDpyZXZpZXciXX0.dB7MdEyJfSUMdNyjWnc9IQPnF3kZ-sOkBfqTcl9HL-BN81c7yF-OBov94T1dSeI6DAC9dDLgQvzw4vZI-n0hbX8ED9C_mVGGMgYfozHm6kBWtKSozM4nuIQV4TVlZm4hvur0C4HNUD-B3Md5kQMbqp3XW4jgiELXjtGhQOTV3TSeWcj7rE1-gepo7NDQTcJcwP-ZoXd2sQ0Q9Kfoa-TCpEWtoy2Y2EXhC7-OGRNeqY-bcV0dWPCxK_uHUPy5XWiIkqi34eOAm3RGTzjZabEigSw61dV-yiThs98vOYMeUXD4iGnZvVL4kEaiSJSbxf-JFrxJFsj2WdOGqZ6Kmiy8Kg",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "2dcb0be2-c0a1-4cb2-bf84-8d6991093e18",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "35b12c25-9f03-4760-9c46-9c12e3243e14",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Admin",
+			"item": [
+				{
+					"name": "/mangas",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "f5e484cd-491b-4752-a663-9e0cfd7a2ec7",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"value contains mangas array\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.mangas).to.be.an('array')",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/mangas",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"mangas"
+							]
+						},
+						"description": "get a list of mangas"
+					},
+					"response": []
+				},
+				{
+					"name": "/mangas",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "3c9a9da9-1b07-4dd4-91b5-51f4d44c4905",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\t\n\t\"title\":\"Noblesse\",\n\t\"author\":\"Kwangsu Lee & eho Son\",\n\t\"genre\":[\"Action\", \"Fantasy\", \"Comedy\"],\n\t\"rating\":9.78\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/mangas",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"mangas"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/mangas/1/reviews",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "e1cb4009-fa24-44cf-bcbe-35e9225da512",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\": \"Kashgay\",\n\t\"rating\": 10,\n\t\"review\": \"test create review\",\n\t\"title\": \"TEST\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/mangas/1/reviews",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"mangas",
+								"1",
+								"reviews"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/mangas/1/reviews",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "e9432bab-2913-44d2-b597-117d9a47a756",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/mangas/1/reviews",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"mangas",
+								"1",
+								"reviews"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/reviews/1",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "d8a005da-321a-4f34-81e7-212f9812d97a",
+								"exec": [
+									"pm.test(\"Status code is 404\", function () {",
+									"    pm.response.to.have.status(404);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/reviews/1",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"reviews",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/reviews/4",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "6dc7c268-a674-4f38-b96a-1070d2385fe9",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\": \"Kashgay\",\n\t\"rating\": 10,\n\t\"review\": \"The story is about a boy named Bam and Bam the 25th, and Bam in Korean mean night. thus his name is the 25th night cuz he was born at that night\",\n\t\"title\": \"What Bam mean\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/reviews/4",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"reviews",
+								"4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/reviews/1",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "73dc93fa-530c-41e3-b07b-4e527f3a96ed",
+								"exec": [
+									"pm.test(\"Status code is 404\", function () {",
+									"    pm.response.to.have.status(404);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/reviews/1",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"reviews",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IlBDU3dxYU9aa244UjlGR0tzeF8zMSJ9.eyJpc3MiOiJodHRwczovL2thc2hnYXJ5MS5hdXRoMC5jb20vIiwic3ViIjoiZ29vZ2xlLW9hdXRoMnwxMDQ5MTE0MTc0ODQ2MzQ1NzE4MzIiLCJhdWQiOlsibWFuZ2FyZXZpZXciLCJodHRwczovL2thc2hnYXJ5MS5hdXRoMC5jb20vdXNlcmluZm8iXSwiaWF0IjoxNTg5MTQ2Njg1LCJleHAiOjE1ODkyMzMwODUsImF6cCI6InVwaG1qN2JNVDFOSWtJTWdMa0JYdmIzenR4bWttTEo2Iiwic2NvcGUiOiJvcGVuaWQgcHJvZmlsZSBlbWFpbCIsInBlcm1pc3Npb25zIjpbImFkZDptYW5nYSIsImFkZDpyZXZpZXciLCJkZWxldGU6cmV2aWV3IiwiZWRpdDpyZXZpZXciXX0.iXYmsl_fQa3A9VH7pf2H6n3L0uIiwdHwqe9wn9aWsLy0awQoZgvPFyB8yn6dLj3Z1dStdTmwncFBjXgcFPEHQnyACefA-EBKJLwfIjVpm-MBhK2PGpTr37v3Pag0FaGiJuJgoANNLsvi_urbagwAQibPjCkvmT0czV5FhQHBXMzKkG7bk4BpSRyb2HgQkkBmA4Po38wCPaXdm-HCX8kulW5oFasR5dfR16Y3EEWd2JSX3cpGuIpqigAy8JTNHon9Dzv51kTxJYwR25dUu5gPRli-ifU4L2eqnkNW-8Pxikid3PpXQGbcuWE3GGDDubmm_niBBk41Kneg2VP8L6RJ3Q",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "7d9cfd63-a603-4db3-a4f9-9a9e5cdaff81",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "1640376e-7212-45ec-acfc-f41c66449fe8",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			],
+			"protocolProfileBehavior": {}
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "2d329801-5497-467f-9fac-87c12482f63b",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "a7f1ab31-805e-4356-81c1-9061f2714f12",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"id": "f26e2b39-52f5-4da3-8de0-565628c1eb17",
+			"key": "host",
+			"value": "https://manga-reviews.herokuapp.com/",
+			"type": "string"
+		}
+	],
+	"protocolProfileBehavior": {}
+}
