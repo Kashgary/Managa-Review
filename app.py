@@ -34,8 +34,11 @@ def create_app(test_config=None):
         response.headers.add('Access-Control-Allow-Methods',
                              'GET,PUT,POST,DELETE,OPTIONS')
         return response
-
-    @app.route('/manga_list', methods=['GET'])
+    @app.route('/', methods=['GET'])
+    def get_mangas(jwt):
+        return jsonify({'success': True, 'JWT': jwt})
+        
+    @app.route('/mangas', methods=['GET'])
     def get_mangas():
         selection = Manga.query.order_by(Manga.title).all()
         paginated_mangas = pagination(request, selection)
@@ -45,7 +48,7 @@ def create_app(test_config=None):
         return jsonify({'success': True, 'mangas': paginated_mangas,
                        'total_mangas': len(selection)})
 
-    @app.route('/add_manga', methods=['POST'])
+    @app.route('/mangas', methods=['POST'])
     @requires_auth('add:manga')
     def add_manga(jwt):
         body = request.get_json()
@@ -66,7 +69,7 @@ def create_app(test_config=None):
 
             abort(422)
 
-    @app.route('/manga/<int:manga_id>/reviews', methods=['GET'])
+    @app.route('/mangas/<int:manga_id>/reviews', methods=['GET'])
     def get_reviews(manga_id):
         selection = Review.query.filter(
             Review.manga_id == manga_id).order_by(Review.id).all()
@@ -93,7 +96,7 @@ def create_app(test_config=None):
             'total_reviews': len(selection),
             })
 
-    @app.route('/review/<int:id>', methods=['GET'])
+    @app.route('/reviews/<int:id>', methods=['GET'])
     def get_a_review(id):
         review = Review.query.filter(Review.id == id).all()
         if len(review) == 0:
@@ -101,7 +104,7 @@ def create_app(test_config=None):
         items = [item.format() for item in review]
         return jsonify({'success': True, 'review': items})
 
-    @app.route('/manga/<int:manga_id>/add_review', methods=['POST'])
+    @app.route('/mangas/<int:manga_id>/reviews', methods=['POST'])
     @requires_auth('add:review')
     def add_review(jwt, manga_id):
         body = request.get_json()
@@ -125,7 +128,7 @@ def create_app(test_config=None):
 
             abort(422)
 
-    @app.route('/review/<int:id>', methods=['DELETE'])
+    @app.route('/reviews/<int:id>', methods=['DELETE'])
     @requires_auth('delete:review')
     def delete_review(jwt, id):
         manga_id = \
@@ -144,7 +147,7 @@ def create_app(test_config=None):
         except BaseException:
             abort(422)
 
-    @app.route('/review/<id>', methods=['PATCH'])
+    @app.route('/reviews/<id>', methods=['PATCH'])
     @requires_auth('edit:review')
     def update_drink(jwt, id):
 
