@@ -54,7 +54,7 @@ These are the permissions
 }
 ```
 
-- GET '/manga/<int:manga_id>/reviews'
+- GET '/manga/manga_id/reviews'
     - Fetches list of all reviews of a spicfic manga
     - Request Arguments: None
     - Returns: An object with reviews details
@@ -78,7 +78,7 @@ These are the permissions
 }
 ```
 
-- GET '/review/<int:id>' 
+- GET '/review/id' 
     - Fetches an object containing the review
     - Request Arguments: None
     - Returns: An object with review details
@@ -98,7 +98,7 @@ These are the permissions
 }
 ```
 
-- DELETE '/review/<int:id>'
+- DELETE '/review/id'
     - Delete an object containing the review
     - Request Arguments: None
     - Returns: success on delete
@@ -109,7 +109,7 @@ These are the permissions
 }
 ```
 
-- PATCH '/review/<id>' 
+- PATCH '/review/id' 
     - Edit an object containing the review
     - Request Arguments: String:name, String:title, String:review, Float:rating
     - Returns: success on Edit with the new updated object
