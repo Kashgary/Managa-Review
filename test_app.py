@@ -79,6 +79,12 @@ class MangaReviewTestCase(unittest.TestCase):
         self.assertEqual(res.status_code, 200)
         self.assertEqual(data['success'], True)
         self.assertEqual(review, None)
+        
+    def test_404_delete_review(self):
+        res = self.client().delete('/reviews/575')
+        data = json.loads(res.data)
+
+        self.assertEqual(res.status_code, 404)
     
     def test_add_manga(self):
         res = self.client().post('/mangas', json=self.new_manga)
