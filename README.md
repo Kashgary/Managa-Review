@@ -59,11 +59,11 @@ Setting the `FLASK_APP` variable to `app.py` directs flask to use the `app.py` d
 ## Manga Review API 
 
 This API is about reviewing mangas and take an idea about the manga before you read it
-https://manga-reviews.herokuapp.com/
+[API URL](https://manga-reviews.herokuapp.com/mangas)
 
 ## Auth
-you can make a user at this url but with no roles, you can only view reviews and mangas
-https://kashgary1.auth0.com/authorize?audience=mangareview&response_type=token&client_id=uphmj7bMT1NIkIMgLkBXvb3ztxmkmLJ6&redirect_uri=https://manga-reviews.herokuapp.com/
+you can make a user at this url but with no roles, you can only view reviews and mangas. you can 
+[Sign Up](https://kashgary1.auth0.com/authorize?audience=mangareview&response_type=token&client_id=uphmj7bMT1NIkIMgLkBXvb3ztxmkmLJ6&redirect_uri=https://manga-reviews.herokuapp.com/) here.
 
 in this app there are two roles Admin and Reviewer 
 - Admin: have full access
