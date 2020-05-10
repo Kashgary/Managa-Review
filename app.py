@@ -138,7 +138,27 @@ def create_app(test_config=None):
         })
 
     except BaseException:
-        abort(422)   
+        abort(422)
+
+  @app.route("/review/<int:id>", methods=['DELETE'])
+  def delete_review(id):
+    manga_id = Review.query.with_entities(Review.manga_id).filter(Review.id==id).all()
+    print(manga_id[0])
+    if not manga_id:
+        abort(404)
+        
+    review = Review.query.get((id,manga_id[0]))
+    
+    if not review:
+        abort(404)
+    try:
+        review.delete()
+        return jsonify({
+            'success': True,
+            'deleted': id
+        })
+    except BaseException:
+        abort(422)
   return app
 
 APP = create_app()
