@@ -3,6 +3,7 @@ from flask import Flask, request, abort, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
 from models import setup_db, Manga, Review
+from auth import AuthError, requires_auth
 
 ITEMS_PER_PAGE = 10
 
@@ -46,7 +47,8 @@ def create_app(test_config=None):
       })
   
   @app.route('/add_manga', methods=['POST'])
-  def add_manga():
+  @requires_auth('add:manga')
+  def add_manga(jwt):
     body = request.get_json()
 
     if not (
@@ -110,7 +112,8 @@ def create_app(test_config=None):
       })
 
   @app.route('/manga/<int:manga_id>/add_review', methods=['POST'])
-  def add_review(manga_id):
+  @requires_auth('add:review')
+  def add_review(jwt,manga_id):
     body = request.get_json()
     manga = Manga.query.get(manga_id)
     print(body.get('title'))
@@ -141,7 +144,8 @@ def create_app(test_config=None):
         abort(422)
 
   @app.route("/review/<int:id>", methods=['DELETE'])
-  def delete_review(id):
+  @requires_auth('delete:review')
+  def delete_review(id, jwt):
     manga_id = Review.query.with_entities(Review.manga_id).filter(Review.id==id).all()
     if not manga_id:
         abort(404)
@@ -159,7 +163,8 @@ def create_app(test_config=None):
     except BaseException:
         abort(422)
   @app.route("/review/<id>", methods=['PATCH'])
-  def update_drink(id):
+  @requires_auth('edit:review')
+  def update_drink(jwt, id):
 
     manga_id = Review.query.with_entities(Review.manga_id).filter(Review.id==id).all()
     if not manga_id:
