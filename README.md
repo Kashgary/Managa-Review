@@ -1,4 +1,4 @@
-# Full Stack Final Project
+# Fullstak Nano Degree Graduation Project (Manga Reviews)
 
 ## Getting Started
 
