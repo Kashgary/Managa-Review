@@ -143,7 +143,6 @@ def create_app(test_config=None):
   @app.route("/review/<int:id>", methods=['DELETE'])
   def delete_review(id):
     manga_id = Review.query.with_entities(Review.manga_id).filter(Review.id==id).all()
-    print(manga_id[0])
     if not manga_id:
         abort(404)
         
@@ -159,6 +158,48 @@ def create_app(test_config=None):
         })
     except BaseException:
         abort(422)
+  @app.route("/review/<id>", methods=['PATCH'])
+  def update_drink(id):
+
+    manga_id = Review.query.with_entities(Review.manga_id).filter(Review.id==id).all()
+    if not manga_id:
+        abort(404)
+        
+    review = Review.query.get((id,manga_id[0]))
+    if not review:
+        abort(404)
+        
+    try:
+        body = request.get_json()
+        
+        title=body.get('title')
+        name=body.get('name')
+        review_body=body.get('review')
+        rating=body.get('rating')
+        
+        if title:
+            review.title = title
+        if name:
+            review.name = name
+        if review:
+            review.review = review_body
+        if rating:
+            review.rating = rating
+            
+        review.update()
+        
+        return jsonify({
+            'success': True,
+            'id': review.id,
+            'title': review.title,
+            'name':review.name,
+            'review': review.review,
+            'rating': review.rating,
+            'manga_id': review.manga_id
+        })
+    except BaseException:
+        abort(422)
+
   return app
 
 APP = create_app()
