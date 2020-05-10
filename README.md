@@ -6,7 +6,7 @@
 
 This project is part of fullstack develper nano degree and it is the last project in the course.
 The idea of the this project is to give the readers a source to have an idea about a manga if they like to read it
-and a platform for manga enthusiastic to share thier opinions of the manga.
+and a platform for manga enthusiastic to share thier opinions of the mangas they read.
 
 ### Installing Dependencies
 
@@ -75,11 +75,14 @@ These are the permissions
 - delete:review (Admin,Reviewer)
 - add:manga (Admin)
 
-This app runs on python so please install leatest version of python via pip
-```
+## API Documentation
 
-```
-## Endpoints
+### Postman Collection
+
+You can test all these endpoint via Postman Collection, import this file 
+`FSND Manga Review.postman_collection.json` to your postman client and run the tests
+
+### Endpoints
 
 - GET '/mangas'
     - Fetches list of all mangas 10 per page
