@@ -55,17 +55,18 @@ class Manga(db.Model):
 class Review(db.Model):  
   __tablename__ = 'review'
 
-  id = db.Column(db.Integer, primary_key=True)
+  id = db.Column(db.Integer, autoincrement=True, primary_key=True)
   title = db.Column(db.String, nullable=False)
   name = db.Column(db.String, nullable=False)
+  review = db.Column(db.String, nullable=False)
   manga_id = db.Column(db.Integer, db.ForeignKey('manga.id'), primary_key=True)
   rating = db.Column(db.Float)
   
 
-  def __init__(self, title, author, genre, rating, manga_id):
+  def __init__(self, title, name, review, rating, manga_id):
     self.title = title
-    self.author = author
-    self.genre = genre
+    self.name = name
+    self.review = review
     self.rating = rating
     self.manga_id = manga_id
 
@@ -86,6 +87,7 @@ class Review(db.Model):
       'manga_id': self.manga_id,
       'title': self.title,
       'name': self.name,
+      'review': self.review,
       'rating': self.rating
     }
 

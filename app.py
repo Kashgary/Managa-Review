@@ -4,15 +4,15 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
 from models import setup_db, Manga, Review
 
-MANGA_PER_PAGE = 10
+ITEMS_PER_PAGE = 10
 
 def pagination(request, selection):
     page = request.args.get('page', 1, type=int)
-    start = (page - 1) * MANGA_PER_PAGE
-    end = start + MANGA_PER_PAGE
+    start = (page - 1) * ITEMS_PER_PAGE
+    end = start + ITEMS_PER_PAGE
 
-    mangas = [manga.format() for manga in selection]
-    pagination = mangas[start:end]
+    items = [item.format() for item in selection]
+    pagination = items[start:end]
 
     return pagination
 
@@ -34,7 +34,7 @@ def create_app(test_config=None):
     
   @app.route('/manga_list', methods=['GET'])
   def get_mangas():
-      selection = Managa.query.order_by(Managa.title).all()
+      selection = Manga.query.order_by(Manga.title).all()
       paginated_mangas = pagination(request, selection)
       
       if len(paginated_mangas) == 0:
@@ -48,7 +48,7 @@ def create_app(test_config=None):
   @app.route('/add_manga', methods=['POST'])
   def add_manga():
     body = request.get_json()
-    print(body.get('rating'))
+
     if not (
             'title' in body and 'author' in body and
             'genre' in body and 'rating' in body
@@ -70,7 +70,75 @@ def create_app(test_config=None):
         })
 
     except BaseException:
-        abort(422)    
+        abort(422)
+
+  @app.route('/manga/<int:manga_id>/reviews', methods=['GET'])
+  def get_reviews(manga_id):
+      selection = Review.query.filter(
+          Review.manga_id==manga_id).order_by(Review.id).all()
+      paginated_reviews = pagination(request, selection)
+      manga = Manga.query.with_entities(Manga.title).filter(Manga.id==manga_id).all()
+      if len(paginated_reviews) == 0:
+          abort(404)
+      
+      if not manga:
+          abort(404)
+      data =[]
+      for review in paginated_reviews:
+        data.append({
+            "id": review.get('id'),
+            "manga_id": review.get('manga_id'),
+            "title": review.get('title'),
+            "name": review.get('name')
+        })
+      return jsonify({
+          'success': True,
+          'manga': manga,
+          'reviews': data,
+          'total_reviews': len(selection),
+      })
+
+  @app.route('/review/<int:id>', methods=['GET'])
+  def get_a_review(id):
+      review = Review.query.filter(Review.id==id).all()
+      if len(review) == 0:
+          abort(404)
+      items = [item.format() for item in review]
+      return jsonify({
+          'success': True,
+          'review': items,
+      })
+
+  @app.route('/manga/<int:manga_id>/add_review', methods=['POST'])
+  def add_review(manga_id):
+    body = request.get_json()
+    manga = Manga.query.get(manga_id)
+    print(body.get('title'))
+    print(manga)
+    if not (
+            'name' in body and 'review' in body and
+            'title' in body and 'rating' in body
+            ):
+        abort(422)
+    if not manga:
+        abort(404)
+    try:
+        review = Review(
+            title=body.get('title'),
+            name=body.get('name'),
+            review=body.get('review'),
+            rating=body.get('rating'),
+            manga_id = manga_id
+            )
+        review.insert()
+
+        return jsonify({
+            'success': True,
+            'created': review.title,
+        })
+
+    except BaseException:
+        abort(422)   
   return app
 
 APP = create_app()
