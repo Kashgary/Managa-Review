@@ -36,7 +36,7 @@ def create_app(test_config=None):
         return response
     @app.route('/', methods=['GET'])
     def index():
-        return jsonify({'success': True, 'JWT': request.full_path})
+        return jsonify({'success': True, 'message': 'you are authrized'})
         
     @app.route('/mangas', methods=['GET'])
     def get_mangas():
