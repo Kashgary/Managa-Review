@@ -168,7 +168,7 @@ def create_app(test_config=None):
     review = Review.query.get((id,manga_id[0]))
     if not review:
         abort(404)
-        
+
     try:
         body = request.get_json()
         
