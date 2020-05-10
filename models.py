@@ -4,8 +4,7 @@ from flask_sqlalchemy import SQLAlchemy
 import json
 from flask_migrate import Migrate
 
-database_name = "managa_review"
-database_path = "postgres://hodjnmoqyjfgpw:3ca5fbc6ad740c034195b50c6379cc3a43b775d5e9b575864b90815a35d5440d@ec2-52-202-146-43.compute-1.amazonaws.com:5432/dco6ngpks0c5p6/{}".format(database_name)
+database_path = "postgres://yvjkqthupfflsb:c0455588824e2a5dcb759bf6258ded65b6ccb08498cdd98f172ae0938060d7f0@ec2-50-17-90-177.compute-1.amazonaws.com:5432/d4lk17f4g9aee1"
 
 db = SQLAlchemy()
 
